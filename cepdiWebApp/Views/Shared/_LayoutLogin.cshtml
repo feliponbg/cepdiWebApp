@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">     agregado para direccion no localhost-->
+    <title>@ViewData["Title"] - capdiWebAppp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sign-in/">
+
+    @RenderSection("Styles", required: false)
+
+</head>
+<body>
+    <header>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    @*<footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - cepdi - <a asp-area="" asp-page="/Privacy">Privacy</a> - <a asp-area="" asp-page="/Registrarme">Registrarme</a>
+        </div>
+    </footer>*@
+
+    <!--<script src="~/lib/jquery/dist/jquery.min.js"></script>-->
+    <!--<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>-->
+    <script src="~/js/jquery-1.9.1.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!--<script src="~/js/site.js" asp-append-version="true"></script>-->
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

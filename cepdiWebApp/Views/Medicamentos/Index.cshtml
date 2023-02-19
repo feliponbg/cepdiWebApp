@@ -1,0 +1,72 @@
+﻿@model List<cepdiWebApp.Models.Medicamento>
+
+
+<div class="text-center">
+    <h1 class="display-4">Medicamentos</h1>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    @using (Html.BeginForm())
+{
+    <p>
+        Buscar por Nombre: @Html.TextBox("nombre")
+    </p>
+        <p>
+            Buscar por Presentación: @Html.TextBox("presentacion")
+        </p>
+        <p>
+            Buscar por concentración: @Html.TextBox("concentracion")
+        </p>
+        <input type="submit" value="Aplicar filtros" />
+}
+    <table>
+        <tr>
+            <th>
+                NOMBRE
+            </th>
+            <th>
+                CONCENTRACION
+            </th>
+            <th>
+                PRECIO
+            </th>
+            <th>
+                STOCK
+            </th>
+            <th>
+                PRESENTACION
+            </th>
+            <th>NOMBREFORMAFARMACEUTICA</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NOMBRE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CONCENTRACION)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PRECIO)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.STOCK)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PRESENTACION)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NOMBREFORMAFARMACEUTICA)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.IIDMEDICAMENTO }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.IIDMEDICAMENTO }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.IIDMEDICAMENTO })
+                </td>
+            </tr>
+        }
+
+</div>

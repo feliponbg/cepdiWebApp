@@ -3,6 +3,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+#region Values Session
+builder.Services.AddMemoryCache();
+builder.Services.AddSession();
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+#endregion Values Session
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -19,6 +26,10 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+#region Values Session
+app.UseSession();
+#endregion Values Session
 
 app.MapControllerRoute(
     name: "default",
