@@ -18,7 +18,7 @@ namespace cepdiWebApp.Controllers
     public class MedicamentosController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private const string URL = "https://localhost:5001/api/v1/";
+        private const string URL = "https://localhost:44383/api/v1/";
 
         private async Task<bool> ValidarSesion()
         {
@@ -95,8 +95,14 @@ namespace cepdiWebApp.Controllers
                 string totalRegistros = "1";
                 if (response.Headers.Contains("TotalRecords"))
                     totalRegistros = response.Headers.GetValues("TotalRecords").First();
-                float totalPaginas = Convert.ToInt32(totalRegistros) / Convert.ToInt32(tamañoPagina);
-                for (int i = 0; i < Convert.ToInt32(totalPaginas + 1); i++)
+                int totalPaginas = Convert.ToInt32(totalRegistros) / Convert.ToInt32(tamañoPagina);
+
+                float resultadoModulo = (Convert.ToSingle(totalRegistros) / Convert.ToSingle(tamañoPagina)) % (Convert.ToInt32(totalRegistros) / Convert.ToInt32(tamañoPagina));
+
+                if (resultadoModulo > 0)
+                    totalPaginas++;
+
+                for (int i = 0; i < totalPaginas; i++)
                     paginas.Add(i + 1);
                 ViewBag.Paginacion = paginas;
                 ViewBag.PaginaActual = pageNumber > 0 ? pageNumber : 1;
@@ -387,7 +393,6 @@ namespace cepdiWebApp.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-
 
 
     }

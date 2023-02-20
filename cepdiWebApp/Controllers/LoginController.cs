@@ -12,7 +12,7 @@ namespace cepdiWebApp.Controllers
     public class LoginController : Controller
     {
 
-        private const string URL = "https://localhost:5001/api/v1/";
+        private const string URL = "https://localhost:44383/api/v1/";
 
         //[HttpGet]
         public IActionResult Index()

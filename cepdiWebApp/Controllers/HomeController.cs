@@ -17,7 +17,7 @@ namespace cepdiWebApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private const string URL = "https://localhost:5001/api/v1/";
+        private const string URL = "https://localhost:44383/api/v1/";
         
 
         public HomeController(ILogger<HomeController> logger)
