@@ -1,18 +1,24 @@
 ﻿@model cepdiWebApp.Models.ViewModels.Medicamento
 
+
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
-<h1>Crear Nuevo</h1>
+<h1>Editar</h1>
 
 <h4>Medicamento</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IIDMEDICAMENTO" />
+            <div class="form-group">
+                <label asp-for="IIDMEDICAMENTO" class="control-label"></label>
+                <input asp-for="IIDMEDICAMENTO" class="form-control" readonly />
+                <span asp-validation-for="IIDMEDICAMENTO" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="NOMBRE" class="control-label"></label>
                 <input asp-for="NOMBRE" class="form-control" />
@@ -22,18 +28,18 @@
                 <label asp-for="CONCENTRACION" class="control-label"></label>
                 <input asp-for="CONCENTRACION" class="form-control" />
                 <span asp-validation-for="CONCENTRACION" class="text-danger"></span>
-            </div>
-            @*<div class="form-group">
+            </div>@*
+
+            <div class="form-group">
                 <label asp-for="IIDFORMAFARMACEUTICA" class="control-label"></label>
                 <input asp-for="IIDFORMAFARMACEUTICA" class="form-control" />
                 <span asp-validation-for="IIDFORMAFARMACEUTICA" class="text-danger"></span>
             </div>*@
 
             <div class="form-group">
-                <label class="control-label">SELECCIONE EL NOMBRE DE LA FORMA FARMACEUTICA</label>
+                <label class="control-label">SELECCIONE</label>
                 @Html.DropDownList("FormasFarmaceuticas", null, new { @class = "form-control" })
             </div>
-
 
             <div class="form-group">
                 <label asp-for="PRECIO" class="control-label"></label>

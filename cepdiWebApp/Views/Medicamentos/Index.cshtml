@@ -1,27 +1,64 @@
 ﻿@model List<cepdiWebApp.Models.Medicamento>
 
+@{
+    ViewData["Title"] = "Index";
+}
+
 
 <div class="text-center">
-    <h1 class="display-4">Medicamentos</h1>
+    <h4>Medicamentos</h4>
 
     <p>
-        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Crear Nuevo", "Create")
     </p>
-    @using (Html.BeginForm())
-{
-    <p>
-        Buscar por Nombre: @Html.TextBox("nombre")
-    </p>
+    @using (Html.BeginForm("Index", "Medicamentos"))
+    {
+        <p>
+            Buscar por Nombre: @Html.TextBox("nombre")
+            <input type="hidden" id="hNombre" >
+        </p>
         <p>
             Buscar por Presentación: @Html.TextBox("presentacion")
+            <input type="hidden" id="hPresentacion">
         </p>
         <p>
             Buscar por concentración: @Html.TextBox("concentracion")
+            <input type="hidden" id="hConcentracion">
         </p>
-        <input type="submit" value="Aplicar filtros" />
-}
-    <table>
+       @* <div class="container">
+                <div class="rowc col align-self-center">
+            <div class="form-floating">
+                    @Html.TextBox("nombre", null, new { @class = "form-control" })
+                    @Html.Label("nombre")
+            </div>
+                </div>
+                <div class="rowc col align-self-center">
+            <div class="form-floating">
+                    @Html.TextBox("presentacion", null, new { @class = "form-control" })
+                    @Html.Label("presentacion")
+            </div>
+            </div>
+                    <div class="rowc col align-self-center">
+            <div class="form-floating">
+                @Html.TextBox("concentracion", null, new { @class = "form-control" })
+                @Html.Label("concentracion")
+            </div>
+            </div>
+        </div>*@
+
+        <input class="btn btn-primary" type="submit" id="btnAplicarFiltros" value="Aplicar filtros" />
+    }
+
+    @using (Html.BeginForm("Index", "Medicamentos"))
+    {
+        <input class="btn btn-secondary" type="submit" value="Limpiar filtros" />
+    }
+
+    <table class="table table-striped">
         <tr>
+            <th>
+                IIDMEDICAMENTO
+            </th>
             <th>
                 NOMBRE
             </th>
@@ -37,12 +74,20 @@
             <th>
                 PRESENTACION
             </th>
-            <th>NOMBREFORMAFARMACEUTICA</th>
+            <th>
+                NOMBREFORMAFARMACEUTICA
+            </th>
+            <th>
+                ACCIONES
+            </th>
         </tr>
 
         @foreach (var item in Model)
         {
             <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IIDMEDICAMENTO)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.NOMBRE)
                 </td>
@@ -62,11 +107,27 @@
                     @Html.DisplayFor(modelItem => item.NOMBREFORMAFARMACEUTICA)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id=item.IIDMEDICAMENTO }) |
-                    @Html.ActionLink("Details", "Details", new { id=item.IIDMEDICAMENTO }) |
-                    @Html.ActionLink("Delete", "Delete", new { id=item.IIDMEDICAMENTO })
+                    @Html.ActionLink("Editar", "Edit", new { id=item.IIDMEDICAMENTO }) |
+                    @Html.ActionLink("Detalle", "Details", new { id=item.IIDMEDICAMENTO }) |
+                    @Html.ActionLink("Eliminar", "Delete", new { id=item.IIDMEDICAMENTO })
                 </td>
             </tr>
         }
+    </table>
+    <nav>
+        <ul class="pagination">
+            @*<li class="page-item"><a class="page-link" asp-action="Index" asp-route-pageNumber="@(ViewBag.PaginaActual - 1)">Anterior</a></li>*@
+            @foreach (var item in ViewBag.Paginacion)
+            {
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-pageNumber="@item">@item.ToString()</a></li>
+            }
+            @*<li class="page-item"><a class="page-link" asp-action="Index" asp-route-pageNumber="@(ViewBag.PaginaActual + 1)">Siguiente</a></li>*@
+        </ul>
+    </nav>
 
 </div>
+
+@section Scripts
+{
+    <script src="~/js/medicamentosIndex.js"></script>
+}

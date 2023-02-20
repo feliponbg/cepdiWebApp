@@ -28,8 +28,8 @@ namespace cepdiWebApp.Controllers
             client.BaseAddress = new Uri($"{URL}Sesiones/IniciarSesion");
 
             // Add an Accept header for JSON format.
-            client.DefaultRequestHeaders.Accept.Add(
-            new MediaTypeWithQualityHeaderValue("application/json"));
+            /*client.DefaultRequestHeaders.Accept.Add(
+            new MediaTypeWithQualityHeaderValue("application/json"));*/
 
             var credencial = new
             {
@@ -53,12 +53,22 @@ namespace cepdiWebApp.Controllers
                 HttpContext.Session.SetString("Token", datos.Token);
 
             }
-            else
+            else if (response.IsSuccessStatusCode && response.StatusCode.Equals(System.Net.HttpStatusCode.NoContent))
             {
-                Console.WriteLine("{0} ({1})", (int)response.StatusCode, response.ReasonPhrase);
+                HttpContext.Session.SetString("Usuario", "");
+                HttpContext.Session.SetString("Token", "");
+                return RedirectToAction("Index", "Login");
             }
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost] 
+        public IActionResult CerrarSesion()
+        {
+            HttpContext.Session.SetString("Usuario", "");
+            HttpContext.Session.SetString("Token", "");
+            return RedirectToAction("Index", "Login");
         }
 
 

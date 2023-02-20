@@ -20,7 +20,15 @@
                     @using (Html.BeginForm("Entrar", "Login", FormMethod.Post))
                     {
                     <form>
-                        <h1 class="h3 mb-3 fw-normal">Por favor inicie sesión</h1>
+                        <br />
+                            <br />
+                            <div class="container">
+                                    <picture>
+                                        <img src="~/resources/cepdi.png" class="img-fluid img-thumbnail" alt="">
+                                    </picture>
+                            </div>
+
+                            <br />
 
                             <div class="form-floating">
                                 @Html.TextBoxFor(m => m.Usuario, new { placeholder = "#####", @class = "form-control" })
@@ -30,7 +38,7 @@
                                 @Html.PasswordFor(m => m.Contraseña, new { placeholder = "#####", @class = "form-control" })
                                 @Html.LabelFor(m => m.Contraseña)
                             </div>
-                        
+                            <br />
                         @*<div class="form-floating">
                           <input type="email" class="form-control" id="floatingInput" placeholder="#####">
                           <label for="floatingInput">Usuario</label>

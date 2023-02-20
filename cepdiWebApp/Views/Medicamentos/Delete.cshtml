@@ -1,15 +1,16 @@
 ﻿@model cepdiWebApp.Models.ViewModels.Medicamento
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Delete";
 }
 
-<h1>Detalle</h1>
+<h1>Eliminar</h1>
 
-<h4>Medicamento</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<h4>¿Esta seguro de que querer eliminar este Medicamento?</h4>
+<div>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IIDMEDICAMENTO" />
             <div class="form-group">
@@ -24,14 +25,14 @@
             </div>
             <div class="form-group">
                 <label asp-for="CONCENTRACION" class="control-label"></label>
-                <input asp-for="CONCENTRACION" class="form-control" readonly/>
+                <input asp-for="CONCENTRACION" class="form-control" readonly />
                 <span asp-validation-for="CONCENTRACION" class="text-danger"></span>
             </div>
 
             @*<div class="form-group">
-                <label asp-for="IIDFORMAFARMACEUTICA" class="control-label"></label>
-                <input asp-for="IIDFORMAFARMACEUTICA" class="form-control" />
-                <span asp-validation-for="IIDFORMAFARMACEUTICA" class="text-danger"></span>
+            <label asp-for="IIDFORMAFARMACEUTICA" class="control-label"></label>
+            <input asp-for="IIDFORMAFARMACEUTICA" class="form-control" />
+            <span asp-validation-for="IIDFORMAFARMACEUTICA" class="text-danger"></span>
             </div>*@
 
             <div class="form-group">
@@ -41,13 +42,13 @@
 
             <div class="form-group">
                 <label asp-for="PRECIO" class="control-label"></label>
-                <input asp-for="PRECIO" class="form-control" readonly/>
+                <input asp-for="PRECIO" class="form-control" readonly />
                 <span asp-validation-for="PRECIO" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="STOCK" class="control-label"></label>
-                <input asp-for="STOCK" class="form-control" readonly/>
+                <input asp-for="STOCK" class="form-control" readonly />
                 <span asp-validation-for="STOCK" class="text-danger"></span>
             </div>
 
@@ -59,18 +60,19 @@
 
             <div class="form-group">
                 <label asp-for="BHABILITADO" class="control-label"></label>
-                @*<input type="checkbox" asp-for="BHABILITADO" readonly/>*@
+                @*<input type="checkbox" asp-for="BHABILITADO" />*@
                 @Html.CheckBoxFor(m => m.BHABILITADO, new { @disabled = "disabled" })
             </div>
+        </div>
     </div>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="IIDMEDICAMENTO" />
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        @*<a asp-action="Index">Regresar a la lista</a>*@
+    </form>
 </div>
 
 <div>
     <a asp-action="Index">Regresar a la lista</a>
 </div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
