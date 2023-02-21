@@ -24,43 +24,50 @@ namespace cepdiWebApp.Controllers
         [HttpPost]
         public IActionResult Entrar(Models.ViewModels.Sesion model)
         {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri($"{URL}Sesiones/IniciarSesion");
-
-            // Add an Accept header for JSON format.
-            /*client.DefaultRequestHeaders.Accept.Add(
-            new MediaTypeWithQualityHeaderValue("application/json"));*/
-
-            var credencial = new
+            try
             {
-                usuario = model.Usuario,
-                contraseña = model.Contraseña,
-                mantenerSesionIniciada = model.MantenerSesionIniciada
-            };
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri($"{URL}Sesiones/IniciarSesion");
 
-            string json = JsonConvert.SerializeObject(credencial);
+                // Add an Accept header for JSON format.
+                /*client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));*/
 
-            // List data response.
-            HttpResponseMessage response = client.PostAsync("", new StringContent(json.ToString(), Encoding.UTF8, "application/json")).Result;  // Blocking call! Program will wait here until a response is received or a timeout occurs.
-            if (response.IsSuccessStatusCode && response.StatusCode.Equals(System.Net.HttpStatusCode.OK))
-            {
-                // Parse the response body.
-                var dataObjects = response.Content.ReadAsStringAsync().Result;
-                var datos = JsonConvert.DeserializeObject<Models.Sesion>(dataObjects);
+                var credencial = new
+                {
+                    usuario = model.Usuario,
+                    contraseña = model.Contraseña,
+                    mantenerSesionIniciada = model.MantenerSesionIniciada
+                };
+
+                string json = JsonConvert.SerializeObject(credencial);
+
+                // List data response.
+                HttpResponseMessage response = client.PostAsync("", new StringContent(json.ToString(), Encoding.UTF8, "application/json")).Result;  // Blocking call! Program will wait here until a response is received or a timeout occurs.
+                if (response.IsSuccessStatusCode && response.StatusCode.Equals(System.Net.HttpStatusCode.OK))
+                {
+                    // Parse the response body.
+                    var dataObjects = response.Content.ReadAsStringAsync().Result;
+                    var datos = JsonConvert.DeserializeObject<Models.Sesion>(dataObjects);
 
 
-                HttpContext.Session.SetString("Usuario", datos.Usuario);
-                HttpContext.Session.SetString("Token", datos.Token);
+                    HttpContext.Session.SetString("Usuario", datos.Usuario);
+                    HttpContext.Session.SetString("Token", datos.Token);
 
+                }
+                else if (response.IsSuccessStatusCode && response.StatusCode.Equals(System.Net.HttpStatusCode.NoContent))
+                {
+                    HttpContext.Session.SetString("Usuario", "");
+                    HttpContext.Session.SetString("Token", "");
+                    return RedirectToAction("Index", "Login");
+                }
+
+                return RedirectToAction("Index", "Home");
             }
-            else if (response.IsSuccessStatusCode && response.StatusCode.Equals(System.Net.HttpStatusCode.NoContent))
+            catch
             {
-                HttpContext.Session.SetString("Usuario", "");
-                HttpContext.Session.SetString("Token", "");
-                return RedirectToAction("Index", "Login");
+                return Redirect("Index");
             }
-
-            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost] 
